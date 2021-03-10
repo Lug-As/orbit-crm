@@ -6,7 +6,7 @@
 					Вход в CRM-систему администратора
 				</h2>
 			</div>
-			<form action="" class="crm__form">
+			<form class="crm__form">
 				<div class="login__row-form-body">
 					<div class="login__row-form-item crm__row-item">
 						<div class="login__row-form-item-label">
@@ -15,7 +15,12 @@
 							</label>
 						</div>
 						<div class="login__row-form-item-input">
-							<input type="text" id="log" required>
+							<input
+								v-model.trim="email"
+								type="text"
+								id="log"
+								required
+							>
 						</div>
 					</div>
 					<div class="login__row-form-item crm__row-item">
@@ -25,14 +30,26 @@
 							</label>
 						</div>
 						<div class="login__row-form-item-input">
-							<input type="password" id="crmlogpass" required>
+							<input
+								v-model="password"
+								type="password"
+								id="crmlogpass"
+								required
+							>
 						</div>
 					</div>
 				</div>
 				<div class="login__row-form-button crm__row-button">
-					<button class="button-grand-black big">ВОЙТИ</button>
+					<button
+						@click.prevent="login"
+						type="submit"
+						class="button-grand-black big"
+					>
+						ВОЙТИ
+					</button>
 				</div>
 			</form>
+			<preloader v-if="loading" class="auth-loader" height="100vh"/>
 		</div>
 	</section>
 </template>
@@ -40,12 +57,23 @@
 <script>
 import tokenService from '@/auth/tokenService'
 import authService from '@/api/authService'
+import Preloader from '@/components/Preloader'
 
 export default {
 	name: 'Login',
+	components: {Preloader},
+	data: () => ({
+		email: '',
+		password: '',
+		loading: false,
+	}),
 	methods: {
-		login(userData) {
+		login() {
 			this.loading = true
+			const userData = {
+				email: this.email,
+				password: this.password,
+			}
 			authService.login(userData)
 				.then(response => {
 					if (response.data.token) {

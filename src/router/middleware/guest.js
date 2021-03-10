@@ -3,6 +3,6 @@ export default function guest({next, store}) {
 		return next()
 	}
 	return next({
-		name: 'dashboard',
+		name: 'main',
 	})
 }

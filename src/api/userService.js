@@ -10,9 +10,4 @@ export default {
 			},
 		})
 	},
-	async putUserInfo(type, value) {
-		return axios.post(UserPath, {
-			[type]: value,
-		})
-	},
 }

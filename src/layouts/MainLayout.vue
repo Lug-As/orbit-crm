@@ -109,36 +109,6 @@
 				</div>
 			</div>
 		</transition>
-		<transition name="fade">
-			<sign
-				v-if="showSign"
-				@closed="showSign = false"
-				@login="showSign = false; showLogin = true"
-				@submit="register"
-			/>
-		</transition>
-		<transition name="fade">
-			<login
-				v-if="showLogin"
-				@closed="showLogin = false"
-				@forget="showLogin = false; showForget = true"
-				@submit="login"
-			/>
-		</transition>
-		<transition name="fade">
-			<forget
-				v-if="showForget"
-				@closed="showForget = false"
-				@submit="forget"
-			/>
-		</transition>
-		<transition name="fade">
-			<change
-				v-if="showChange"
-				@closed="showChange = false"
-				@submit="change"
-			/>
-		</transition>
 		<preloader v-if="loading" class="auth-loader" height="100vh"/>
 		<footer class="footer normal-footer">
 			<div class="container">
@@ -188,16 +158,11 @@
 <script>
 import Vue from 'vue'
 import tokenService from '@/auth/tokenService'
-import Sign from '@/components/auth/Sign'
-import authService from '@/api/authService'
 import Preloader from '@/components/Preloader'
-import Login from '@/components/auth/Login'
-import Forget from '@/components/auth/Forget'
-import Change from '@/components/auth/Change'
 
 export default {
 	name: 'MainLayout',
-	components: {Change, Forget, Login, Preloader, Sign},
+	components: {Preloader},
 	data: () => ({
 		showNotice: false,
 		noticeText: null,

@@ -81,10 +81,5 @@ export default {
 			}
 			return token
 		},
-		async saveUserInfo({commit}, payload = {
-			type, value,
-		}) {
-			await userService.putUserInfo(payload.type, payload.value)
-		},
 	},
 }
