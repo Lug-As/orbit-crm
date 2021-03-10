@@ -75,7 +75,14 @@ export default {
 					})
 				if (set) {
 					axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
-					commit('setUser', User.createFromApiData(response.data.data))
+					const apiUserData = response.data.data
+					if (!apiUserData.is_admin) {
+						alert('В доступе отказано!')
+						tokenService.clearToken()
+						location.reload()
+						token = null
+					}
+					commit('setUser', User.createFromApiData(apiUserData))
 					commit('stopUserLoading')
 				}
 			}
