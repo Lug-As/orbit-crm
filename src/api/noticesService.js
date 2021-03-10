@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const NoticesPath = 'notifications'
+const NoticesPath = 'notifications/all'
 
 const fetchNotices = (page = 1) => {
 	return axios.get(NoticesPath, {

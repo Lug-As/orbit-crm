@@ -61,6 +61,7 @@ import Preloader from '@/components/Preloader'
 
 export default {
 	name: 'Login',
+	title: 'Вход администратора',
 	components: {Preloader},
 	data: () => ({
 		email: '',

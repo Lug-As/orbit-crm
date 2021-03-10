@@ -195,23 +195,8 @@ export default {
 		user() {
 			return this.$store.getters.user
 		},
-		expires() {
-			return this.$route.query['expires']
-		},
-		signature() {
-			return this.$route.query['signature']
-		},
-		email() {
-			return this.$route.query['email']
-		},
-		token() {
-			return this.$route.query['token']
-		},
 	},
 	methods: {
-		serviceLink(path = '') {
-			return 'https://orbitaa.ru/' + path
-		},
 		closeNotice() {
 			this.showNotice = false
 			this.noticeText = null

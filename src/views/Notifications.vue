@@ -5,300 +5,43 @@
 				<div class="notifications-crm__row-title">
 					<h2 class="notifications-crm__row-title">Уведомления</h2>
 				</div>
-				<div class="notifications-crm__row-body profile__notification-row">
-					<div class="profile__notification-body">
-						<div class="profile__notification-item">
-							<div class="profile__notification-item-title">
-								<span class="profile__notification-item-text">Блогер</span>
-								<a href="" class="profile__notification-item-link">_agentgirl_</a>
-								<span class="profile__notification-item-text">хочет прорекламировать предложение</span>
-								<a href="" class="profile__notification-item-info-text">
-									“ <p class="profile__notification-item-info-text-p">Необходимо прорекламировать мерч
-									Lorem ipsum
-									dolor sit amet.</p>”</a>
-							</div>
-							<div class="profile__notification-item-data">
-								<div class="profile__notification-item-data-title">
-									<div class="profile__notification-item-data-title-text">
-										<h2 class="profile__notification-item-data-title-h2">
-											Описание предложения:
-										</h2>
-										<p class="profile__notification-item-data-title-p">
-											это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum
-											является стандартной "рыбой" для текстов на латинице с начала XVI века... В то
-											время некий безымянный печатник создал большую коллекцию размеров и форм
-											шрифтов, используя Lorem Ipsum для распечатки образцов. Это текст-"рыба", часто
-											используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой"
-											для текстов на латинице с начала XVI века Lorem ipsum dolor sit amet consectetur
-											adipisicing elit. Neque, quidem!
-										</p>
-									</div>
-								</div>
-								<div class="profile__notification-item-data-info-user">
-									<div class="profile__notification-item-data-info-user-text">
-										<h2 class="profile__notification-item-data-info-user-h2">
-											Бюджет:
-										</h2>
-										<p class="profile__notification-item-data-info-user-p">
-											От 20 000 до 50 000 руб.
-										</p>
-									</div>
-									<div class="profile__notification-item-data-info-user-text">
-										<h2 class="profile__notification-item-data-info-user-h2">
-											Рекламодатель:
-										</h2>
-										<p class="profile__notification-item-data-info-user-p">
-											<a href="" class="profile__notification-item-link">Вася Пупкин</a>
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
+				<preloader v-if="noticesLoading"/>
+				<div
+					v-else-if="notices && notices.length"
+					class="notifications-crm__row-body profile__notification-row"
+				>
+					<div
+						v-for="notice in notices"
+						class="profile__notification-body"
+					>
+						<response-notice
+							v-if="notice.type === 'responses'"
+							:notice="notice"
+						/>
+						<offer-notice
+							v-else-if="notice.type === 'offers'"
+							:notice="notice"
+						/>
+						<account-notice
+							v-else-if="notice.type === 'requests'"
+							:notice="notice"
+						/>
+						<project-notice
+							v-else
+							:notice="notice"
+						/>
 					</div>
-					<div class="profile__notification-body">
-						<div class="profile__notification-item">
-							<div class="profile__notification-item-title">
-								<span class="profile__notification-item-text">Рекламодатель</span>
-								<a href="" class="profile__notification-item-link">_agentgirl_</a>
-								<span class="profile__notification-item-text">хочет поработать с блогером</span>
-								<a href="" class="profile__notification-item-link">_agentgirl_</a>
-							</div>
-							<div class="profile__notification-item-data">
-								<div class="profile__notification-item-data-title">
-									<div class="profile__notification-item-data-title-text">
-										<h2 class="profile__notification-item-data-title-h2">
-											Описание предложения:
-										</h2>
-										<p class="profile__notification-item-data-title-p">
-											это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum
-											является стандартной "рыбой" для текстов на латинице с начала XVI века... В то
-											время некий безымянный печатник создал большую коллекцию размеров и форм
-											шрифтов, используя Lorem Ipsum для распечатки образцов. Это текст-"рыба", часто
-											используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой"
-											для текстов на латинице с начала XVI века Lorem ipsum dolor sit amet consectetur
-											adipisicing elit. Neque, quidem!
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="profile__notification-body">
-						<div class="profile__notification-item">
-							<div class="profile__notification-item-title">
-								<span class="profile__notification-item-text">Рекламодатель</span>
-								<a href="" class="profile__notification-item-link">_agentgirl_</a>
-								<span class="profile__notification-item-text">запросил данные блогера</span>
-								<a href="" class="profile__notification-item-link">_agentgirl_</a>
-							</div>
-							<div class="profile__notification-item-data">
-								<div class="profile__notification-item-data-info-user">
-									<div class="profile__notification-item-data-info-user-text">
-										<h2 class="profile__notification-item-data-info-user-h2">
-											Предложение блогера:
-										</h2>
-										<p class="profile__notification-item-data-info-user-p">
-											<a href="" class="profile__notification-item-link">“Необходимо прорекламировать
-												мерч...”.</a>
-										</p>
-									</div>
-								</div>
-								<div class="profile__notification-item-data-title">
-									<div class="profile__notification-item-data-title-text">
-										<h2 class="profile__notification-item-data-title-h2">
-											Текст предложения:
-										</h2>
-										<p class="profile__notification-item-data-title-p">
-											это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum
-											является стандартной "рыбой" для текстов на латинице с начала XVI века... В то
-											время некий безымянный печатник создал большую коллекцию размеров и форм
-											шрифтов, используя Lorem Ipsum для распечатки образцов. Это текст-"рыба", часто
-											используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой"
-											для текстов на латинице с начала XVI века Lorem ipsum dolor sit amet consectetur
-											adipisicing elit. Neque, quidem!
-										</p>
-									</div>
-								</div>
-								<div class="profile__notification-item-data-info-user">
-									<div class="profile__notification-item-data-info-user-text">
-										<h2 class="profile__notification-item-data-info-user-h2">
-											Бюджет:
-										</h2>
-										<p class="profile__notification-item-data-info-user-p">
-											От 20 000 до 50 000 руб.
-										</p>
-									</div>
-								</div>
-							</div>
-
-						</div>
-					</div>
-					<div class="profile__notification-body">
-						<div class="profile__notification-item">
-							<div class="profile__notification-item-title">
-								<span class="profile__notification-item-text">Блогер</span>
-								<a href="" class="profile__notification-item-link">_agentgirl_</a>
-								<span class="profile__notification-item-text">запросил данные рекламодателя</span>
-								<a href="" class="profile__notification-item-link">_agentgirl_</a>
-							</div>
-							<div class="profile__notification-item-data">
-								<div class="profile__notification-item-data-title">
-									<div class="profile__notification-item-data-title-text">
-										<h2 class="profile__notification-item-data-title-h2">
-											Описание задачи рекламодателя:
-										</h2>
-										<p class="profile__notification-item-data-title-p">
-											это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum
-											является стандартной "рыбой" для текстов на латинице с начала XVI века... В то
-											время некий безымянный печатник создал большую коллекцию размеров и форм
-											шрифтов, используя Lorem Ipsum для распечатки образцов. Это текст-"рыба", часто
-											используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой"
-											для текстов на латинице с начала XVI века Lorem ipsum dolor sit amet consectetur
-											adipisicing elit. Neque, quidem!
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="profile__notification-body">
-						<div class="profile__notification-item">
-							<div class="profile__notification-item-title">
-								<span class="profile__notification-item-text">Блогер</span>
-								<a href="" class="profile__notification-item-link">_agentgirl_</a>
-								<span class="profile__notification-item-text">создал аккаунт</span>
-							</div>
-							<div class="profile__notification-item-data">
-								<div class="profile__notification-item-data-info-user">
-									<div class="profile__notification-item-data-info-user-text">
-										<h2 class="profile__notification-item-data-info-user-h2">
-											Название аккаунта:
-										</h2>
-										<a href="" class="profile__notification-item-link">_agentgirl_</a>
-									</div>
-									<div class="profile__notification-item-data-info-user-text">
-										<h2 class="profile__notification-item-data-info-user-h2">
-											Количество подписчиков:
-										</h2>
-										<p class="profile__notification-item-data-info-user-p">
-											1 000 000
-										</p>
-									</div>
-									<div class="profile__notification-item-data-info-user-text">
-										<h2 class="profile__notification-item-data-info-user-h2">
-											Бюджет:
-										</h2>
-										<p class="profile__notification-item-data-info-user-p">
-											Миллионы долларов
-										</p>
-									</div>
-									<div class="profile__notification-item-data-info-user-text">
-										<h2 class="profile__notification-item-data-info-user-h2">
-											Имя:
-										</h2>
-										<p class="profile__notification-item-data-info-user-p">
-											Анастасия Ивлеева
-										</p>
-									</div>
-									<div class="profile__notification-item-data-info-user-text">
-										<h2 class="profile__notification-item-data-info-user-h2">
-											Эл. почта:
-										</h2>
-										<p class="profile__notification-item-data-info-user-p">
-											marta_b@mail.ru
-										</p>
-									</div>
-									<div class="profile__notification-item-data-info-user-text">
-										<h2 class="profile__notification-item-data-info-user-h2">
-											Телефон:
-										</h2>
-										<p class="profile__notification-item-data-info-user-p">
-											+7 903 596 49 79
-										</p>
-									</div>
-								</div>
-							</div>
-							<div class="profile__notification-item-button">
-								<button class="profile__notification-item-button-text button-grand-transparent">Подтвердить
-									аккаунт
-								</button>
-								<button class="profile__notification-item-button-text button-grand-black">Отправить
-									сообщение
-								</button>
-							</div>
-						</div>
-					</div>
-					<div class="profile__notification-body">
-						<div class="profile__notification-item">
-							<div class="profile__notification-item-title">
-								<h2 class="profile__notification-item-data-info-user-h2">
-									Создали предложение
-								</h2>
-								<a href="" class="profile__notification-item-info-text">
-									“ <p class="profile__notification-item-info-text-p">Необходимо прорекламировать мерч
-									Lorem ipsum
-									dolor sit amet.</p>”</a>
-							</div>
-							<div class="profile__notification-item-data">
-								<div class="profile__notification-item-data-info-user">
-									<div class="profile__notification-item-data-info-user-text">
-										<h2 class="profile__notification-item-data-info-user-h2">
-											Название аккаунта:
-										</h2>
-										<a href="" class="profile__notification-item-link">_agentgirl_</a>
-									</div>
-									<div class="profile__notification-item-data-info-user-text">
-										<h2 class="profile__notification-item-data-info-user-h2">
-											Количество подписчиков:
-										</h2>
-										<p class="profile__notification-item-data-info-user-p">
-											1 000 000
-										</p>
-									</div>
-									<div class="profile__notification-item-data-info-user-text">
-										<h2 class="profile__notification-item-data-info-user-h2">
-											Бюджет:
-										</h2>
-										<p class="profile__notification-item-data-info-user-p">
-											Миллионы долларов
-										</p>
-									</div>
-									<div class="profile__notification-item-data-info-user-text">
-										<h2 class="profile__notification-item-data-info-user-h2">
-											Имя:
-										</h2>
-										<p class="profile__notification-item-data-info-user-p">
-											Анастасия Ивлеева
-										</p>
-									</div>
-									<div class="profile__notification-item-data-info-user-text">
-										<h2 class="profile__notification-item-data-info-user-h2">
-											Эл. почта:
-										</h2>
-										<p class="profile__notification-item-data-info-user-p">
-											marta_b@mail.ru
-										</p>
-									</div>
-									<div class="profile__notification-item-data-info-user-text">
-										<h2 class="profile__notification-item-data-info-user-h2">
-											Телефон:
-										</h2>
-										<p class="profile__notification-item-data-info-user-p">
-											+7 903 596 49 79
-										</p>
-									</div>
-								</div>
-							</div>
-							<div class="profile__notification-item-button">
-								<button class="profile__notification-item-button-text button-grand-transparent">
-									Удалить предложение
-								</button>
-								<button class="profile__notification-item-button-text button-grand-black">
-									Подтвердить предложение
-								</button>
-							</div>
-						</div>
-					</div>
+				</div>
+				<template v-else>
+					<p class="empty-result-text">Пока нет уведомлений</p>
+				</template>
+				<br>
+				<div class="objects-pagination">
+					<pagination
+						:data="noticesPagination"
+						:limit="3"
+						@pagination-change-page="changePage"
+					/>
 				</div>
 			</div>
 		</div>
@@ -306,7 +49,85 @@
 </template>
 
 <script>
+import Preloader from '@/components/Preloader'
+import ResponseNotice from '@/components/notices/ResponseNotice'
+import OfferNotice from '@/components/notices/OfferNotice'
+import AccountNotice from '@/components/notices/AccountNotice'
+import ProjectNotice from '@/components/notices/ProjectNotice'
+
 export default {
 	name: 'Notifications',
+	components: {ProjectNotice, AccountNotice, OfferNotice, ResponseNotice, Preloader},
+	title: 'Уведомления',
+	computed: {
+		notices() {
+			return this.$store.getters.notices
+		},
+		noticesLoading() {
+			return this.$store.getters.noticesLoading
+		},
+		noticesPagination() {
+			return this.$store.getters.noticesPagination
+		},
+		page() {
+			let page
+			if (this.$route.query['page']) {
+				page = Math.abs(parseInt(this.$route.query['page']))
+				if (page === 1) {
+					this.clearQueryParam('page')
+				}
+			} else {
+				page = 1
+			}
+			if (page === 0 || !Number.isInteger(page)) {
+				page = 1
+			}
+			return page
+		},
+		user() {
+			return this.$store.getters.user
+		},
+	},
+	methods: {
+		loadNotices() {
+			this.$store.dispatch('loadNotices', {
+				page: this.page,
+			})
+		},
+		clearQueryParam(key) {
+			if (this.$route.query[key] !== undefined) {
+				let query = Object.assign({}, this.$route.query)
+				delete query[key]
+				this.$router.replace({query})
+			}
+		},
+		scrollToTop(top = 0) {
+			window.scrollTo({
+				top,
+				behavior: 'smooth',
+			})
+		},
+		changePage(page = 1) {
+			if (page !== this.page) {
+				this.scrollToTop(160)
+				this.$router.push({
+					name: this.$route.name,
+					query: {
+						page,
+					},
+				})
+					.then(() => this.loadNotices())
+				return true
+			}
+			return false
+		},
+	},
+	mounted() {
+		if (this.user) {
+			this.loadNotices()
+		} else {
+			this.$onUserLoad.hook(this.loadNotices)
+		}
+	},
 }
 </script>

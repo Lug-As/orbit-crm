@@ -10,6 +10,7 @@ import slashedList from './helpers/filters/slashedList'
 import cutText from './helpers/filters/cutText'
 import phoneNumber from './helpers/filters/phoneNumber'
 import titleMixin from './helpers/mixins/titleMixin'
+import serviceLink from './helpers/mixins/serviceLink'
 import {ApiBaseUrl} from './api/info'
 import './assets/css/main.css'
 import './assets/css/my.scss'
@@ -24,6 +25,7 @@ Vue.filter('phone', phoneNumber)
 Vue.filter('cut', cutText)
 Vue.filter('slashedList', slashedList)
 Vue.mixin(titleMixin)
+Vue.mixin(serviceLink)
 
 axios.defaults.baseURL = ApiBaseUrl
 

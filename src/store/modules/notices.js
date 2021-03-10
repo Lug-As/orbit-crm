@@ -3,7 +3,7 @@ import noticesService from '@/api/noticesService'
 export default {
 	state: {
 		notices: [],
-		noticesLoading: false,
+		noticesLoading: true,
 		noticesPagination: {},
 	},
 	getters: {
