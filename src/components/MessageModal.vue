@@ -13,17 +13,11 @@
 					>&times;</span>
 					<div class="bloger__massage-alert">
 						<h2 class="bloger__alert-h2">
-							Все сообщения модерируются. За распространение
-							некорректных предложений, или предложений
-							неподходящих для нашего сервиса мы вправе отключать
-							пользователей. <span class="bloger__alert-span">Будьте корректны!</span>
+							По желанию укажите причину отклонения заявки. Пользователю будет легче понять, что от него
+							требуется.
 						</h2>
 					</div>
 					<form class="bloger__massage-comment" @submit.prevent="handleForm">
-						<slot></slot>
-						<div class="bloger__massage-title">
-							<h2 class="bloger__title-text">Оставь комментарий по поводу задачи</h2>
-						</div>
 						<div class="bloger__comment-text">
 							<textarea
 								v-model.trim="offerText"
@@ -37,7 +31,7 @@
 							<p v-if="errorMsg.length" class="red">{{ errorMsg }}</p>
 						</div>
 						<div class="bloger__comment-button">
-							<button class="bloger__button-border">Предложить выполнение задачи</button>
+							<button class="bloger__button-border">Отклонить заявку</button>
 						</div>
 					</form>
 				</div>
@@ -47,7 +41,7 @@
 </template>
 
 <script>
-import {required, maxLength} from 'vuelidate/lib/validators'
+import {maxLength} from 'vuelidate/lib/validators'
 
 export default {
 	name: 'MessageModal',
@@ -73,7 +67,7 @@ export default {
 	methods: {
 		closeModal() {
 			this.showModal = false
-			this.$emit('close-modal')
+			this.$emit('closed')
 		},
 		handleForm() {
 			if (this.validate()) {
@@ -93,17 +87,14 @@ export default {
 			return true
 		},
 		setErrors() {
-			if (!this.$v.offerText.required) {
-				this.errorMsg = 'Это поле обязательно для заполнения.'
-			} else if (!this.$v.offerText.maxLength) {
+			if (!this.$v.offerText.maxLength) {
 				this.errorMsg = 'Текст предложения не должен превышать ' + this.$v.offerText.$params.maxLength.max + ' символов.'
 			}
 		},
 	},
 	validations: {
 		offerText: {
-			required,
-			maxLength: maxLength(2000),
+			maxLength: maxLength(250),
 		},
 	},
 }

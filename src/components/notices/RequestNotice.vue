@@ -13,6 +13,14 @@
 				</div>
 				<div class="profile__notification-item-data-info-user-text">
 					<h2 class="profile__notification-item-data-info-user-h2">
+						Имя пользователя:
+					</h2>
+					<p class="profile__notification-item-data-info-user-p">
+						{{ notice.user.name }}
+					</p>
+				</div>
+				<div class="profile__notification-item-data-info-user-text">
+					<h2 class="profile__notification-item-data-info-user-h2">
 						Типы рекламы:
 					</h2>
 					<p class="profile__notification-item-data-info-user-p">
@@ -20,14 +28,6 @@
 							{{ type.name }} {{ type.price ? `(${type.price.toLocaleString()}₽)` : '' }}
 							{{ (idx + 1) !== notice.ad_types.length ? ' / ' : '' }}
 						</template>
-					</p>
-				</div>
-				<div class="profile__notification-item-data-info-user-text">
-					<h2 class="profile__notification-item-data-info-user-h2">
-						Имя:
-					</h2>
-					<p class="profile__notification-item-data-info-user-p">
-						{{ notice.user.name }}
 					</p>
 				</div>
 				<div class="profile__notification-item-data-info-user-text" v-if="notice.region">
@@ -74,26 +74,33 @@
 					Подтвердить аккаунт
 				</button>
 				<button
-					@click.prevent="cancel"
+					@click.prevent="showModal"
 					class="profile__notification-item-button-text button-grand-black"
 				>
 					Отклонить заявку
 				</button>
 			</template>
 		</div>
+		<message-modal
+			:open="openModal"
+			@closed="openModal = false"
+			@submit="cancel"
+		/>
 	</div>
 </template>
 
 <script>
 import requestsService from '@/api/requestsService'
 import Preloader from '@/components/Preloader'
+import MessageModal from '@/components/MessageModal'
 
 export default {
 	name: 'RequestNotice',
-	components: {Preloader},
+	components: {MessageModal, Preloader},
 	data: () => ({
 		showAllText: false,
 		loading: false,
+		openModal: false,
 	}),
 	props: {
 		notice: {
@@ -115,8 +122,19 @@ export default {
 					})
 			}
 		},
-		cancel() {
-			console.log('CANCEL', this.notice.id)
+		cancel(msg = '') {
+			this.loading = true
+			requestsService.cancelRequest(this.notice.id, msg)
+				.then(() => {
+						this.$notify('Заявка отклонена!')
+						this.$emit('updated')
+					})
+					.catch(() => {
+						alert('Произошла ошибка отправки формы. Повторите позже.')
+					})
+		},
+		showModal() {
+			this.openModal = true
 		},
 	},
 }
