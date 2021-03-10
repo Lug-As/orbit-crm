@@ -67,19 +67,25 @@
 			</div>
 		</div>
 		<div class="profile__notification-item-button">
-			<button class="profile__notification-item-button-text button-grand-transparent">
+			<preloader v-if="loading" height="80"/>
+			<button
+				@click.prevent="removeProject"
+				v-else
+				class="profile__notification-item-button-text button-grand-transparent"
+			>
 				Удалить предложение
-			</button>
-			<button class="profile__notification-item-button-text button-grand-black">
-				Подтвердить предложение
 			</button>
 		</div>
 	</div>
 </template>
 
 <script>
+import projectsService from '@/api/projectsService'
+import Preloader from '@/components/Preloader'
+
 export default {
 	name: 'ProjectNotice',
+	components: {Preloader},
 	props: {
 		notice: {
 			type: Object,
@@ -88,6 +94,22 @@ export default {
 	},
 	data: () => ({
 		showAllText: false,
+		loading: false,
 	}),
+	methods: {
+		removeProject() {
+			if (confirm('Вы точно хотите удалить рекламное предложение? Восстановить его будет невозможно.')) {
+				this.loading = true
+				projectsService.deleteProject(this.notice.id)
+					.then(() => {
+						this.$notify('Предложение удалено!')
+						this.$emit('deleted')
+					})
+					.catch(() => {
+						alert('Произошла ошибка отправки формы. Повторите позже.')
+					})
+			}
+		},
+	},
 }
 </script>

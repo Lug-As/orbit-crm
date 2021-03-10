@@ -25,10 +25,12 @@
 						<account-notice
 							v-else-if="notice.type === 'requests'"
 							:notice="notice"
+							@deleted="loadNotices"
 						/>
 						<project-notice
-							v-else
+							v-else-if="notice.type === 'projects'"
 							:notice="notice"
+							@deleted="loadNotices"
 						/>
 					</div>
 				</div>
