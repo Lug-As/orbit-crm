@@ -67,7 +67,10 @@
 			</div>
 		</div>
 		<div class="profile__notification-item-button">
-			<preloader v-if="loading" height="80"/>
+			<preloader
+				v-if="loading"
+				small
+			/>
 			<button
 				@click.prevent="removeProject"
 				v-else

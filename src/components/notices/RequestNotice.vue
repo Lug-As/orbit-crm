@@ -17,7 +17,8 @@
 					</h2>
 					<p class="profile__notification-item-data-info-user-p">
 						<template v-for="(type, idx) in notice.ad_types">
-							{{ type.name }} {{ type.price ? `(${type.price.toLocaleString()}₽)` : '' }} {{ (idx + 1) !== notice.ad_types.length ? ' / ' : '' }}
+							{{ type.name }} {{ type.price ? `(${type.price.toLocaleString()}₽)` : '' }}
+							{{ (idx + 1) !== notice.ad_types.length ? ' / ' : '' }}
 						</template>
 					</p>
 				</div>
@@ -61,27 +62,62 @@
 			</div>
 		</div>
 		<div class="profile__notification-item-button">
-			<button class="profile__notification-item-button-text button-grand-transparent">
-				Подтвердить аккаунт
-			</button>
-			<button class="profile__notification-item-button-text button-grand-black">
-				Отправить сообщение
-			</button>
+			<preloader
+				v-if="loading"
+				small
+			/>
+			<template v-else>
+				<button
+					@click.prevent="approve"
+					class="profile__notification-item-button-text button-grand-transparent"
+				>
+					Подтвердить аккаунт
+				</button>
+				<button
+					@click.prevent="cancel"
+					class="profile__notification-item-button-text button-grand-black"
+				>
+					Отклонить заявку
+				</button>
+			</template>
 		</div>
 	</div>
 </template>
 
 <script>
+import requestsService from '@/api/requestsService'
+import Preloader from '@/components/Preloader'
+
 export default {
-	name: 'AccountNotice',
+	name: 'RequestNotice',
+	components: {Preloader},
+	data: () => ({
+		showAllText: false,
+		loading: false,
+	}),
 	props: {
 		notice: {
 			type: Object,
 			required: true,
 		},
 	},
-	data: () => ({
-		showAllText: false,
-	}),
+	methods: {
+		approve() {
+			if (confirm('Подтвердить заявку на создание аккаунта? Аккаунт появиться на сайте.')) {
+				this.loading = true
+				requestsService.approveRequest(this.notice.id)
+					.then(() => {
+						this.$notify('Аккаунт подтвержден!')
+						this.$emit('updated')
+					})
+					.catch(() => {
+						alert('Произошла ошибка отправки формы. Повторите позже.')
+					})
+			}
+		},
+		cancel() {
+			console.log('CANCEL', this.notice.id)
+		},
+	},
 }
 </script>

@@ -75,13 +75,11 @@
 						</div>
 						<div class="header__sign-row" v-else>
 							<button
-								@click="showLogin = true"
 								class="header__menu-sign button-grand"
 							>
 								Вход
 							</button>
 							<button
-								@click="showSign = true"
 								class="header__menu-sign button-grand"
 							>
 								Регистрация
@@ -109,7 +107,6 @@
 				</div>
 			</div>
 		</transition>
-		<preloader v-if="loading" class="auth-loader" height="100vh"/>
 		<footer class="footer normal-footer">
 			<div class="container">
 				<div class="footer__row">
@@ -166,22 +163,12 @@ export default {
 	data: () => ({
 		showNotice: false,
 		noticeText: null,
-		showLogin: false,
-		showSign: false,
-		showForget: false,
-		showChange: false,
-		loading: false,
 		displayMenu: false,
 	}),
 	watch: {
 		showNotice(val) {
 			if (val === true) {
 				setTimeout(this.closeNotice, 2500)
-			}
-		},
-		'$route'(val) {
-			if (val['name'] === 'ChangePassword') {
-				this.showChange = true
 			}
 		},
 	},
@@ -209,9 +196,6 @@ export default {
 		},
 	},
 	mounted() {
-		if (this.$route.name === 'ChangePassword') {
-			this.showChange = true
-		}
 		Vue.prototype.$notify = (text) => {
 			this.noticeText = text
 			this.showNotice = true

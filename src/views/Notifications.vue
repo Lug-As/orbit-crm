@@ -22,10 +22,10 @@
 							v-else-if="notice.type === 'offers'"
 							:notice="notice"
 						/>
-						<account-notice
+						<request-notice
 							v-else-if="notice.type === 'requests'"
 							:notice="notice"
-							@deleted="loadNotices"
+							@updated="loadNotices"
 						/>
 						<project-notice
 							v-else-if="notice.type === 'projects'"
@@ -54,12 +54,12 @@
 import Preloader from '@/components/Preloader'
 import ResponseNotice from '@/components/notices/ResponseNotice'
 import OfferNotice from '@/components/notices/OfferNotice'
-import AccountNotice from '@/components/notices/AccountNotice'
+import RequestNotice from '@/components/notices/RequestNotice'
 import ProjectNotice from '@/components/notices/ProjectNotice'
 
 export default {
 	name: 'Notifications',
-	components: {ProjectNotice, AccountNotice, OfferNotice, ResponseNotice, Preloader},
+	components: {ProjectNotice, RequestNotice, OfferNotice, ResponseNotice, Preloader},
 	title: 'Уведомления',
 	computed: {
 		notices() {
