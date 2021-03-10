@@ -19,13 +19,15 @@
 						<transition name="upper">
 							<ul class="header__menu-ul" v-if="menuOpened">
 								<li class="header__menu-li ">
-									<a href="" class="header__menu-link add-li">Главная</a>
+									<a :href="serviceLink()" class="header__menu-link add-li">Главная</a>
 									<ul class="header__menu-drop">
 										<li class="header__menu-li ">
-											<a href="" class="header__menu-link">Блогеру</a>
+											<a :href="serviceLink('#instruction__bloger')"
+												class="header__menu-link">Блогеру</a>
 										</li>
 										<li class="header__menu-li">
-											<a href="" class="header__menu-link">Рекламодателю</a>
+											<a :href="serviceLink('#instruction')"
+												class="header__menu-link">Рекламодателю</a>
 										</li>
 									</ul>
 								</li>
@@ -74,16 +76,18 @@
 							</ul>
 						</div>
 						<div class="header__sign-row" v-else>
-							<button
-								class="header__menu-sign button-grand"
+							<a
+								:href="serviceLink('accounts?showLogin=true')"
+								class="header__menu-sign button-grand link-button"
 							>
 								Вход
-							</button>
-							<button
-								class="header__menu-sign button-grand"
+							</a>
+							<a
+								:href="serviceLink('accounts?showRegister=true')"
+								class="header__menu-sign button-grand link-button"
 							>
 								Регистрация
-							</button>
+							</a>
 						</div>
 					</div>
 				</div>
@@ -131,16 +135,17 @@
 								</a>
 							</li>
 							<li class="footer__ul-li">
-								<a :href="serviceLink()" class="footer__li-link">Информация Блогеру</a>
+								<a :href="serviceLink('#instruction__bloger')" class="footer__li-link">Информация Блогеру</a>
 							</li>
 							<li class="footer__ul-li">
-								<a :href="serviceLink()" class="footer__li-link">Рекламодателю</a>
+								<a :href="serviceLink('#instruction')" class="footer__li-link">Рекламодателю</a>
 							</li>
 						</ul>
 					</div>
 					<div class="footer__rights">
 						<div class="footer__rights-contract">
-							<a href class="footer__li-link">Договор на обработку персональных данных</a>
+							<a :href="serviceLink('agreement')" class="footer__li-link">Договор на обработку персональных
+								данных</a>
 						</div>
 						<div class="footer__rights-right">
 							<a class="footer__li-link">Орбита 2021 /©Все права защищены!</a>
@@ -203,3 +208,9 @@ export default {
 	},
 }
 </script>
+
+<style lang="scss" scoped>
+.link-button {
+	display: inline-block;
+}
+</style>
