@@ -1,1 +1,1 @@
-export const ApiBaseUrl = 'http://tiktok-orbit.me/api/v1/'
+export const ApiBaseUrl = 'https://api.orbitaa.ru/v1/'

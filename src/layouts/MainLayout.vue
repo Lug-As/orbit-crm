@@ -22,11 +22,11 @@
 									<a :href="serviceLink()" class="header__menu-link add-li">Главная</a>
 									<ul class="header__menu-drop">
 										<li class="header__menu-li ">
-											<a :href="serviceLink('#instruction__bloger')"
+											<a :href="serviceLink('#instruction__bloger', false)"
 												class="header__menu-link">Блогеру</a>
 										</li>
 										<li class="header__menu-li">
-											<a :href="serviceLink('#instruction')"
+											<a :href="serviceLink('#instruction', false)"
 												class="header__menu-link">Рекламодателю</a>
 										</li>
 									</ul>
@@ -135,10 +135,10 @@
 								</a>
 							</li>
 							<li class="footer__ul-li">
-								<a :href="serviceLink('#instruction__bloger')" class="footer__li-link">Информация Блогеру</a>
+								<a :href="serviceLink('#instruction__bloger', false)" class="footer__li-link">Информация Блогеру</a>
 							</li>
 							<li class="footer__ul-li">
-								<a :href="serviceLink('#instruction')" class="footer__li-link">Рекламодателю</a>
+								<a :href="serviceLink('#instruction', false)" class="footer__li-link">Рекламодателю</a>
 							</li>
 						</ul>
 					</div>

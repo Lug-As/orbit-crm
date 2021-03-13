@@ -1,9 +1,9 @@
-const ServiceUrl = 'http://localhost:8081/'
+const ServiceUrl = 'https://orbitaa.ru'
 
 export default {
 	methods: {
-		serviceLink(path = '') {
-			return ServiceUrl + path
+		serviceLink(path = '', addSlash = true) {
+			return ServiceUrl + (addSlash ? '/' : '') + path
 		},
 	},
 }
